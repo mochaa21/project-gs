@@ -1,12 +1,12 @@
 <?php
 include 'koneksi.php';
 
-// SQL JOIN: Menghubungkan Review dengan User dan Game yang diulas
+// SQL JOIN: Menghubungkan Review dengan User dan Game (Syarat UAS)
 $query = "SELECT r.*, u.username, g.judul 
           FROM trx_review r
           JOIN users u ON r.id_user = u.id_user
           JOIN games g ON r.id_game = g.id_game
-          ORDER BY r.tanggal_review DESC";
+          ORDER BY r.id_review DESC";
 $result = mysqli_query($koneksi, $query);
 ?>
 
@@ -15,18 +15,12 @@ $result = mysqli_query($koneksi, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Pengguna - GameStore Admin</title>
+    <title>Review User - GameStore Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f4f6f9; }
-        .sidebar { min-height: 100vh; background: linear-gradient(180deg, #212529 0%, #343a40 100%); color: white; }
-        .sidebar .brand { padding: 20px; border-bottom: 1px solid #495057; }
-        .sidebar a { color: #ced4da; text-decoration: none; display: block; padding: 12px 20px; transition: 0.3s; }
-        .sidebar a:hover { background-color: #495057; color: #fff; padding-left: 25px; }
-        .sidebar a.active { background-color: #0d6efd; color: white; border-radius: 0 25px 25px 0; }
-        .menu-label { font-size: 0.75rem; text-transform: uppercase; color: #6c757d; margin: 15px 20px 5px; font-weight: bold; }
         .card { border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .star-rating { color: #ffc107; }
     </style>
@@ -34,18 +28,17 @@ $result = mysqli_query($koneksi, $query);
 <body>
 
 <div class="d-flex">
-    
-    <div class="d-flex">
     <?php include 'sidebar.php'; ?>
-    
+
     <div class="flex-grow-1 p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Review & Ulasan User</h2>
+            <a href="tambah_review.php" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                <i class="fas fa-plus-circle me-2"></i> Tambah Review
+            </a>
         </div>
-</div>
 
-    <div class="flex-grow-1 p-4">
-        <h2 class="mb-4">Ulasan Pengguna</h2>
-
-        <div class="card p-4 shadow-sm">
+        <div class="card p-4">
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-dark">
@@ -54,8 +47,8 @@ $result = mysqli_query($koneksi, $query);
                             <th>Username</th>
                             <th>Game</th>
                             <th>Rating</th>
-                            <th>Komentar</th>
-                            <th>Tanggal</th>
+                            <th>Ulasan</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,23 +59,25 @@ $result = mysqli_query($koneksi, $query);
                         <tr>
                             <td><?= $no++; ?></td>
                             <td class="fw-bold"><?= $row['username']; ?></td>
-                            <td class="text-primary"><?= $row['judul']; ?></td>
+                            <td><?= $row['judul']; ?></td>
                             <td>
-                                <div class="star-rating">
+                                <span class="star-rating">
                                     <?php 
                                     for($i=1; $i<=5; $i++) {
-                                        if($i <= $row['rating']) {
-                                            echo '<i class="fas fa-star"></i>';
-                                        } else {
-                                            echo '<i class="far fa-star"></i>';
-                                        }
+                                        echo $i <= $row['rating'] ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
                                     }
                                     ?>
-                                </div>
-                                <small class="text-muted">(<?= $row['rating']; ?>/5)</small>
+                                </span>
                             </td>
-                            <td class="fst-italic">"<?= $row['komentar']; ?>"</td>
-                            <td><?= date('d/m/Y', strtotime($row['tanggal_review'])); ?></td>
+                            <td><small class="text-muted"><?= substr($row['ulasan'], 0, 50); ?>...</small></td>
+                            <td class="text-center">
+                                <a href="edit_review.php?id=<?= $row['id_review']; ?>" class="btn btn-sm btn-warning text-white me-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="hapus_review.php?id=<?= $row['id_review']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus review ini?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>

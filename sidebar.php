@@ -1,11 +1,10 @@
-<div class="sidebar shadow" style="width: 260px; flex-shrink: 0;">
-    <div class="brand text-center">
-        <h4><i class="fas fa-gamepad text-primary"></i> GameStore</h4>
-        <small>Admin Dashboard</small>
+<div class="sidebar shadow" style="width: 260px; flex-shrink: 0; min-height: 100vh; background: linear-gradient(180deg, #212529 0%, #343a40 100%); color: white;">
+    <div class="p-4 border-bottom border-secondary text-center">
+        <h4 class="mb-0"><i class="fas fa-gamepad text-primary"></i> GameStore</h4>
+        <small class="text-secondary">Admin Dashboard</small>
     </div>
-
     <div class="py-2">
-        <div class="menu-label">Master Data</div>
+        <div class="menu-label" style="font-size: 0.75rem; text-transform: uppercase; color: #6c757d; margin: 15px 20px 5px; font-weight: bold;">Master Data</div>
         <a href="index.php" class="<?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>">
             <i class="fas fa-compact-disc me-2 text-center" style="width: 20px;"></i> Games
         </a>
@@ -31,7 +30,7 @@
             <i class="fas fa-desktop me-2 text-center" style="width: 20px;"></i> System Reqs
         </a>
         
-        <div class="menu-label">Transaksi</div>
+        <div class="menu-label" style="font-size: 0.75rem; text-transform: uppercase; color: #6c757d; margin: 15px 20px 5px; font-weight: bold;">Transaksi</div>
         <a href="trx_pembelian.php" class="<?= basename($_SERVER['PHP_SELF']) == 'trx_pembelian.php' ? 'active' : '' ?>">
             <i class="fas fa-shopping-cart me-2 text-center" style="width: 20px;"></i> Pembelian
         </a>
@@ -48,7 +47,7 @@
             <i class="fas fa-heart me-2 text-center" style="width: 20px;"></i> Wishlist
         </a>
 
-        <div class="menu-label">Laporan Join</div>
+        <div class="menu-label" style="font-size: 0.75rem; text-transform: uppercase; color: #6c757d; margin: 15px 20px 5px; font-weight: bold;">Laporan Join</div>
         <a href="laporan_penjualan.php" class="<?= basename($_SERVER['PHP_SELF']) == 'laporan_penjualan.php' ? 'active' : '' ?>">
             <i class="fas fa-file-invoice-dollar me-2 text-center" style="width: 20px;"></i> Lap. Penjualan
         </a>
@@ -57,3 +56,9 @@
         </a>
     </div>
 </div>
+
+<style>
+    .sidebar a { color: #ced4da; text-decoration: none; display: block; padding: 12px 20px; transition: 0.3s; font-size: 0.9rem; }
+    .sidebar a:hover { background-color: #495057; color: #fff; padding-left: 25px; }
+    .sidebar a.active { background-color: #0d6efd; color: white; border-radius: 0 25px 25px 0; }
+</style>

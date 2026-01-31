@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 
-// Query Join Kompleks dengan Agregasi (SUM & COUNT)
+// Query Join Kompleks untuk Statistik (Syarat UAS No. 2)
 $query = "SELECT 
             g.judul, 
             g.harga,
@@ -25,34 +25,28 @@ $result = mysqli_query($koneksi, $query);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f4f6f9; }
-        .sidebar { min-height: 100vh; background: #212529; color: white; width: 260px; }
-        .sidebar a { color: #ced4da; text-decoration: none; display: block; padding: 12px 20px; }
-        .card { border: none; border-radius: 10px; }
+        .card { border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         @media print {
-            .sidebar, .btn-print { display: none; }
-            .flex-grow-1 { padding: 0 !important; }
+            .sidebar, .btn-print { display: none !important; }
+            .flex-grow-1 { padding: 0 !important; margin: 0 !important; }
         }
     </style>
 </head>
 <body>
 
 <div class="d-flex">
-    <div class="sidebar p-3">
-        <h4><i class="fas fa-gamepad text-primary"></i> GameStore</h4>
-        <hr>
-        <a href="index.php"><i class="fas fa-arrow-left me-2"></i> Dashboard</a>
-    </div>
+    <?php include 'sidebar.php'; ?>
 
     <div class="flex-grow-1 p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Laporan Penjualan Game</h2>
-            <button onclick="window.print()" class="btn btn-success btn-print">
+            <h2 class="fw-bold">Laporan Penjualan Game</h2>
+            <button onclick="window.print()" class="btn btn-success rounded-pill px-4 btn-print">
                 <i class="fas fa-print me-2"></i> Cetak Laporan
             </button>
         </div>
 
-        <div class="card p-4 shadow-sm">
-            <table class="table table-bordered table-hover">
+        <div class="card p-4">
+            <table class="table table-bordered align-middle">
                 <thead class="table-dark">
                     <tr>
                         <th>No</th>
@@ -73,17 +67,17 @@ $result = mysqli_query($koneksi, $query);
                         <td><?= $no++; ?></td>
                         <td class="fw-bold"><?= $row['judul']; ?></td>
                         <td>Rp <?= number_format($row['harga'], 0, ',', '.'); ?></td>
-                        <td class="text-center"><?= $row['total_terjual']; ?> x</td>
+                        <td class="text-center"><?= $row['total_terjual'] ?? 0; ?> x</td>
                         <td class="text-end fw-bold text-success">
-                            Rp <?= number_format($row['total_pendapatan'], 0, ',', '.'); ?>
+                            Rp <?= number_format($row['total_pendapatan'] ?? 0, 0, ',', '.'); ?>
                         </td>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>
                 <tfoot class="table-light">
                     <tr>
-                        <th colspan="4" class="text-end">GRAND TOTAL PENDAPATAN:</th>
-                        <th class="text-end text-primary h5">
+                        <th colspan="4" class="text-end">TOTAL PENDAPATAN KESELURUHAN:</th>
+                        <th class="text-end text-primary h5 fw-bold">
                             Rp <?= number_format($grand_total, 0, ',', '.'); ?>
                         </th>
                     </tr>
