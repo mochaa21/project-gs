@@ -40,33 +40,12 @@ $result = mysqli_query($koneksi, $query);
 
 <div class="d-flex">
     
-    <div class="sidebar" style="width: 260px; flex-shrink: 0;">
-        <div class="brand text-center">
-            <h4><i class="fas fa-gamepad text-primary"></i> GameStore</h4>
-            <small>Admin Dashboard</small>
+    <div class="d-flex">
+    <?php include 'sidebar.php'; ?>
+    
+    <div class="flex-grow-1 p-4">
         </div>
-
-        <div class="menu-label">Master Data</div>
-        <a href="index.php" class="active"><i class="fas fa-compact-disc me-2 w-25"></i> Games</a>
-        <a href="users.php"><i class="fas fa-users me-2 w-25"></i> Users</a>
-        <a href="developers.php"><i class="fas fa-code me-2 w-25"></i> Developers</a>
-        <a href="publishers.php"><i class="fas fa-building me-2 w-25"></i> Publishers</a>
-        <a href="genres.php"><i class="fas fa-tags me-2 w-25"></i> Genres</a>
-        <a href="payment.php"><i class="fas fa-wallet me-2 w-25"></i> Payment Methods</a>
-        <a href="discounts.php"><i class="fas fa-percent me-2 w-25"></i> Discounts</a>
-        <a href="sysreqs.php"><i class="fas fa-desktop me-2 w-25"></i> System Reqs</a>
-        
-        <div class="menu-label">Transaksi</div>
-        <a href="trx_pembelian.php"><i class="fas fa-shopping-cart me-2 w-25"></i> Pembelian</a>
-        <a href="trx_detail.php"><i class="fas fa-list me-2 w-25"></i> Detail Beli</a>
-        <a href="trx_topup.php"><i class="fas fa-money-bill me-2 w-25"></i> Topup Wallet</a>
-        <a href="trx_review.php"><i class="fas fa-star me-2 w-25"></i> Review User</a>
-        <a href="trx_wishlist.php"><i class="fas fa-heart me-2 w-25"></i> Wishlist</a>
-
-        <div class="mt-5 p-3">
-            <button class="btn btn-outline-danger w-100"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
-    </div>
+</div>
 
     <div class="flex-grow-1 p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
